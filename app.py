@@ -11,56 +11,23 @@
 # a user can add a product to wishlist: python3 app.py user wishlist add <username> <product_name>, error if the username does not exist, error if the product name does not exist
 # a user can delete a product from wishlist: python3 app.py user wishlist remove <username> <product_name>, error if the username does not exist, error if the product_name does not exist
 # a user can order an item: python3 app.py user order <username> <product_name> <number_of_items>, delete <product_name> from wishlist (if exists, if not do not print/raise error), decrease number from product stocks, error if there are not enough in stock, error if the username does not exist, error if the product_name does not exist
-
 import sys
 import os
+# we import the class User from file user.py
+from user import User
 
-arguments = sys.argv[1:]
+arguments = sys.argv[1:] # definim o variabila ce contine argumentele date de sistem, incepand de la 1 (eliminam pozitia 0 ce contine numele fisierului app.py)
+# print(arguments)
 
+if arguments[0] == 'user' and arguments[1] == 'add': # sa verificam argumentele date de user
+  new_user = User(arguments[2]) # we create an object user
+  new_user.save() # we save it on the system
 
-def get_username_file(username):
-  return 'user_' + username
-
-def does_file_exist(file_path):
-  try:
-    file = open(file_path)
-    file.close()
-    return True
-  except FileNotFoundError:
-    return False
-
-
-if arguments[0] == 'user' and arguments[1] == 'add':
-  try:
-    file = open(get_username_file(arguments[2]))
-    file.close()
-    print('The username already exists')
-  except:
-    file = open(get_username_file(arguments[2]), 'w')
-    file.close()
-    print('User successfully created')
 
 if arguments[0] == 'user' and arguments[1] == 'remove':
-  try:
-    os.remove(get_username_file(arguments[2]))
-  except FileNotFoundError:
-    print('The user does not exist')
+  user = User(arguments[2])
+  user.remove()
 
 if arguments[0] == 'user' and arguments[1] == 'edit':
-  old_username = arguments[2]
-  try:
-    new_username = arguments[3]
-  except:
-    print('No new username provided')
-    sys.exit(1)
-  if does_file_exist(get_username_file(old_username)):
-    if not does_file_exist(get_username_file(new_username)):
-      file = open(get_username_file(new_username), 'w')
-      file.close()
-      os.remove(get_username_file(old_username))
-    else:
-      print('New username already exists')
-  else:
-    print('User does not exist')
-
-
+  user = User(arguments[2])
+  user.rename(arguments[3])
