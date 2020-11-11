@@ -11,12 +11,12 @@ class User:
       # try to open file, will succeed if it already exists
       file = open(self.file_path)
       file.close()
-      print('User already exists')
+      return 'User already exists' # return the message so we can check it
     except FileNotFoundError:
       # if the file does not exists and we can't open it we create it
       file = open(self.file_path, 'w')
       file.close()
-      print('User added')
+      return 'User added' # return the message so we can check it
 
   def remove(self):
     try:
