@@ -10,11 +10,14 @@ dict = {
 
 
 def get_user_and_password(website_name):
-  i = 0
-  for website in list_websites:
-    if website_name == website:
-      return list_users[i], list_passwords[i]
-    i += 1
+  try:
+    user = dict[website_name]['user']
+    password = dict[website_name]['password']
+    return user, password
+  # if an exception of type KeyError occurs, execute the code in except
+  except KeyError:
+    return '', ''
+
 
 
 for website in list_websites:
