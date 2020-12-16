@@ -7,20 +7,16 @@
 # strikers: dribbling, finishing, heading, passing, composure, stamina, strength, concentration
 # create 3 teams of players, one with good players, one with medium players & one with weak players
 
-from abc import ABC, abstractmethod
 import random
 
 
-
-class Player(ABC):
-  @abstractmethod
+class PlayerStats:
   def __init__(self, passing, stamina):
     self.passing = passing
     self.stamina = stamina
 
 
-class DefensivePlayer(Player):
-  @abstractmethod
+class DefensivePlayerStats(PlayerStats):
   def __init__(self, communication, concentration, passing, stamina):
     self.communication = communication
     self.concentration = concentration
@@ -28,31 +24,30 @@ class DefensivePlayer(Player):
     super().__init__(passing, stamina)
 
 
-class Goalkeeper(DefensivePlayer):
+class Goalkeeper:
   # the constructor
   def __init__(self, communication, reflexes, passing, stamina, concentration):
     # save value to object
     self.reflexes = reflexes
-    # call the parent constructor - Player
-    super().__init__(communication, concentration, passing, stamina)
+    # create a DefensivePlayerStats object
+    self.stats = DefensivePlayerStats(communication, concentration, passing, stamina)
 
 
-class Defender(DefensivePlayer):
+class Defender:
   # the constructor
   def __init__(self, communication, tackling, passing, stamina, concentration):
     # save values to object
     self.tackling = tackling
-    # call the parent constructor
-    super().__init__(communication, concentration, passing, stamina)
+    # create a DefensivePlayerStats object
+    self.stats = DefensivePlayerStats(communication, concentration, passing, stamina)
 
 
-class Midfielder(Player):
+class Midfielder:
   def __init__(self, dribbling, tackling, passing, stamina):
     # save to object
     self.dribbling = dribbling
     self.tackling = tackling
-    # call the parent constructor
-    super().__init__(passing, stamina)
+    self.stats = PlayerStats(passing, stamina)
 
 
 class GoodMidfielder(Midfielder):
@@ -74,6 +69,8 @@ class Team:
       for player in list_players:
         print(player)
         print(player.__dict__)
+        print(player.stats.__dict__)
+
 
 
 gk1 = Goalkeeper(8, 5, 3, 4, 8)
@@ -85,7 +82,8 @@ md2 = Midfielder(tackling=6, passing=6, stamina=5, dribbling=10)
 i = 0
 list_defenders = []
 while i < 5:
-  x0, x1, x2, x3, x4 = random.randint(1, 10), random.randint(1, 10), random.randint(1, 10), random.randint(1, 10), random.randint(1, 10)
+  x0, x1, x2, x3, x4 = random.randint(1, 10), random.randint(1, 10), random.randint(1, 10), \
+                       random.randint(1,10), random.randint(1, 10)
   new_defender = Defender(x0, x1, x2, x3, x4)
   list_defenders.append(new_defender)
   i += 1
