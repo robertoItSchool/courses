@@ -17,10 +17,10 @@ class TaskRepository:
   def get(self) -> List[Task]:
     saved_info = self.__read_from_file()
     tasks = [TaskMapper.to_object(info) for info in saved_info]
-    for task_info in saved_info:
-      to_object = TaskMapper.to_object(task_info)
-      to_object.new_info = 'new_value'
-      tasks.append(to_object)
+    # for task_info in saved_info:
+    #   to_object = TaskMapper.to_object(task_info)
+    #   to_object.new_info = 'new_value'
+    #   tasks.append(to_object)
     return tasks
 
   def __add_task_info(self, list_of_tasks, task):

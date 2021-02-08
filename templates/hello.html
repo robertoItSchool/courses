@@ -1,0 +1,21 @@
+<!-- define the type of the file so the browser knows how to render it -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Our frontend app</title>
+</head>
+<body>
+    <h1>Our biggest title</h1>
+<!-- open some space to access python variables -->
+    <p>{{ p }}</p>
+    <h3>Smaller title</h3>
+
+    <h1>The list of tasks:</h1>
+    <ul>
+      {% for one_task in tasks %}
+        <li>{{ one_task.name }} </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
