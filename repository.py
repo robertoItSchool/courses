@@ -23,14 +23,19 @@ class TaskRepository:
     #   tasks.append(to_object)
     return tasks
 
+  def delete(self, task: Task):
+    list_of_tasks = self.__read_from_file()
+    tasks = [x for x in list_of_tasks if x['name'] != task.name]
+    self.__write_to_file(tasks)
+
   def __add_task_info(self, list_of_tasks, task):
     # extract the info from the Task object
     list_of_tasks.append(TaskMapper.to_dict(task))
+    return list_of_tasks
+
+  def __write_to_file(self, list_of_tasks):
     # create a JSON
     file_content = json.dumps(list_of_tasks)
-    return file_content
-
-  def __write_to_file(self, file_content):
     # open the file for writing, create it if it does not exist
     file = open(self.file_name, 'w')
     # save it to the file
@@ -54,7 +59,6 @@ class TaskRepository:
 if __name__ == "__main__":
   task2 = Task('buy fruits', 'eating', difficulty=2)
   repo = TaskRepository()
+  repo.delete(task2)
   tasks = repo.get()
   print(tasks)
-
-
