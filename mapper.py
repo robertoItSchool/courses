@@ -16,6 +16,6 @@ class TaskMapper:
     return Task(
       task_info['name'],
       task_info['type'],
-      task_info['deadline'],
-      task_info['difficulty']
+      # task_info['deadline'],
+      # task_info['difficulty']
     )

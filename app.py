@@ -3,6 +3,8 @@ import flask
 # from .. import repository
 from repository import TaskRepository
 from task import Task
+from database.task_store_sql import TaskStoreSql
+from database.task_store_file import TaskStoreFile
 
 server = flask.Flask(__name__)
 
@@ -22,8 +24,8 @@ def menu():
 
 # define what to show when accessing the server/
 @server.route('/list')
-def main():
-  repo = TaskRepository()
+def list():
+  repo = TaskRepository(TaskStoreSql())
   tasks = repo.get()
   print('will show an HTML page')
   paragraph = 'content of our paragraph'
@@ -39,7 +41,7 @@ def new():
   if flask.request.method == 'POST':
     new_task = Task(flask.request.form['task-name'],
                     flask.request.form['task-type'])
-    repo = TaskRepository()
+    repo = TaskRepository(TaskStoreSql())
     repo.add(new_task)
-    return flask.redirect(flask.url_for('main'))
+    return flask.redirect(flask.url_for('list'))
 
