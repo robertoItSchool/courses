@@ -20,3 +20,8 @@ class TaskStoreFile(TaskStore):
       # if no file => we have an empty list (no tasks were added)
       list_of_tasks = []
     return list_of_tasks
+
+  def delete(self, task_name: str):
+    list_of_tasks = self.__read_from_file()
+    tasks = [x for x in list_of_tasks if x['name'] != task.name]
+    self.__write_to_file(tasks)

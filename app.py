@@ -45,3 +45,10 @@ def new():
     repo.add(new_task)
     return flask.redirect(flask.url_for('list'))
 
+
+@server.route('/task/<name>', methods=['DELETE'])
+def task(name: str):
+  repo = TaskRepository(TaskStoreSql())
+  task_name = name.replace('_', ' ')
+  repo.delete(task_name)
+  return flask.redirect(flask.url_for('list'))

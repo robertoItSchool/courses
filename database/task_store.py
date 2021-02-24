@@ -10,3 +10,7 @@ class TaskStore(ABC):
   @abstractmethod
   def add(self, task_info: dict):
     pass
+
+  @abstractmethod
+  def delete(self, task_name: str):
+    pass

@@ -22,10 +22,8 @@ class TaskRepository:
     tasks = [TaskMapper.to_object(info) for info in saved_info]
     return tasks
 
-  def delete(self, task: Task):
-    list_of_tasks = self.__read_from_file()
-    tasks = [x for x in list_of_tasks if x['name'] != task.name]
-    self.__write_to_file(tasks)
+  def delete(self, task_name: str):
+    self.task_store.delete(task_name)
 
   def __add_task_info(self, list_of_tasks, task):
     # extract the info from the Task object
