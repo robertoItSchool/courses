@@ -48,3 +48,9 @@ class TaskStoreSql(TaskStore):
       cursor.execute(command)
       connection.commit()
 
+  def update(self, old_name: str, new_name: str):
+    with self.__get_connection() as connection:
+      cursor = connection.cursor()
+      command = f"UPDATE tasks SET name='{new_name}' WHERE name='{old_name}'"
+      cursor.execute(command)
+      connection.commit()
